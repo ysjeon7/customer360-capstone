@@ -15,7 +15,7 @@ variables:
   pg_uc_catalog:
     default: oneenv_lakebase_capstone_lb_catalog
   git_repo_url:
-    default: https://github.com/yoosung-jeon_data/customer360-capstone
+    default: https://github.com/ysjeon7/customer360-capstone
   git_branch:
     default: main
 
