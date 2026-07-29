@@ -3,8 +3,8 @@ from __future__ import annotations
 import json
 import os
 import sys
-
-import httpx
+import urllib.request
+import urllib.error
 
 from _token import get_bearer
 
@@ -17,13 +17,20 @@ def main() -> int:
     print(f"Obtained M2M bearer (len={len(bearer)})")
 
     url = f"{app_url}/api/external/customers/{customer_id}"
-    resp = httpx.get(url, headers={"Authorization": f"Bearer {bearer}"}, timeout=60.0)
-
+    req = urllib.request.Request(url, headers={"Authorization": f"Bearer {bearer}"})
     print(f"GET {url}")
-    print(f"Status: {resp.status_code}")
-    print(json.dumps(resp.json(), indent=2, default=str))
+    try:
+        with urllib.request.urlopen(req, timeout=60.0) as resp:
+            status = resp.status
+            payload = json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        status = e.code
+        payload = e.read().decode()
 
-    if resp.status_code != 200:
+    print(f"Status: {status}")
+    print(json.dumps(payload, indent=2, default=str))
+
+    if status != 200:
         print("FAILED: expected 200")
         return 1
     print("OK: 200 + customer JSON")
