@@ -79,8 +79,18 @@ cur.execute("""
 rows = cur.fetchall()
 
 if rows:
-    df = spark.createDataFrame(rows,
-        ["note_id", "customer_id", "author_email", "note_text", "sentiment", "created_at"])
+    from pyspark.sql.types import (
+        StructType, StructField, StringType, FloatType, TimestampType,
+    )
+    notes_schema = StructType([
+        StructField("note_id", StringType()),
+        StructField("customer_id", StringType()),
+        StructField("author_email", StringType()),
+        StructField("note_text", StringType()),
+        StructField("sentiment", FloatType()),
+        StructField("created_at", TimestampType()),
+    ])
+    df = spark.createDataFrame(rows, notes_schema)
     df.createOrReplaceTempView("_notes_src")
     spark.sql(f"""
         MERGE INTO {CAT}.{SCH}.customer_notes t
@@ -107,8 +117,16 @@ cur.execute("""
 srows = cur.fetchall()
 
 if srows:
-    sdf = spark.createDataFrame(srows,
-        ["override_id", "customer_id", "override_segment", "reason", "author_email", "created_at"])
+    from pyspark.sql.types import StructType, StructField, StringType, TimestampType
+    ovr_schema = StructType([
+        StructField("override_id", StringType()),
+        StructField("customer_id", StringType()),
+        StructField("override_segment", StringType()),
+        StructField("reason", StringType()),
+        StructField("author_email", StringType()),
+        StructField("created_at", TimestampType()),
+    ])
+    sdf = spark.createDataFrame(srows, ovr_schema)
     sdf.createOrReplaceTempView("_ovr_src")
     spark.sql(f"""
         MERGE INTO {CAT}.{SCH}.customer_segment_overrides t
