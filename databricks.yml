@@ -34,3 +34,9 @@ targets:
 
 include:
   - resources/*.yml
+
+sync:
+  exclude:
+    - submission
+    - app/frontend/node_modules
+    - "**/*.map"
