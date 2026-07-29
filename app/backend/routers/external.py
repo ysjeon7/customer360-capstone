@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 
 from fastapi import APIRouter, HTTPException, Request
+from databricks.sdk.service.sql import StatementParameterListItem
 
 from ..auth import obo_client
 
@@ -27,7 +28,7 @@ def external_get_customer(customer_id: str, request: Request):
                    lifetime_value, churn_score
             FROM customers WHERE customer_id = :cid
         """,
-        parameters=[{"name": "cid", "value": customer_id}],
+        parameters=[StatementParameterListItem(name="cid", value=customer_id)],
         wait_timeout="30s",
     )
     if not (prof.result and prof.result.data_array):
@@ -44,7 +45,7 @@ def external_get_customer(customer_id: str, request: Request):
             FROM transactions WHERE customer_id = :cid
             ORDER BY transaction_date DESC LIMIT 20
         """,
-        parameters=[{"name": "cid", "value": customer_id}],
+        parameters=[StatementParameterListItem(name="cid", value=customer_id)],
         wait_timeout="30s",
     )
     tcols = [c.name for c in txn.manifest.schema.columns]

@@ -4,8 +4,9 @@ import os
 
 from fastapi import APIRouter, HTTPException, Query, Request
 from pydantic import BaseModel
+from databricks.sdk.service.sql import StatementParameterListItem
 
-from ..auth import obo_client, sp_client
+from ..auth import obo_client
 from ..db import lakebase_sp
 
 router = APIRouter(prefix="/api/customers", tags=["customers"])
@@ -120,7 +121,7 @@ def get_metrics(customer_id: str, request: Request):
               (SELECT avg(csat_score) FROM support_tickets
                  WHERE customer_id = :cid) AS avg_csat
         """,
-        parameters=[{"name": "cid", "value": customer_id}],
+        parameters=[StatementParameterListItem(name="cid", value=customer_id)],
         wait_timeout="30s",
     )
     row = stmt.result.data_array[0] if stmt.result and stmt.result.data_array else []
@@ -137,7 +138,7 @@ def get_metrics(customer_id: str, request: Request):
             WHERE t.customer_id = :cid AND t.status = 'completed'
             GROUP BY p.category ORDER BY spend DESC LIMIT 5
         """,
-        parameters=[{"name": "cid", "value": customer_id}],
+        parameters=[StatementParameterListItem(name="cid", value=customer_id)],
         wait_timeout="30s",
     )
     rows = top.result.data_array if top.result and top.result.data_array else []
