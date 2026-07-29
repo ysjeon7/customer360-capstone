@@ -1,0 +1,28 @@
+command: ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+env:
+  - name: CAPSTONE_CATALOG
+    value: oneenv_lakebase_capstone_catalog
+  - name: CAPSTONE_SCHEMA
+    value: gold
+  - name: WAREHOUSE_ID
+    value: c2e324d2b4ff3ade
+  - name: DASHBOARD_ID
+    value: "01f18b076b04164a905a98710ae546d7"
+  - name: GENIE_SPACE_ID
+    value: "01f18b078ef41dec8e3b42ab233c15ae"
+  - name: PGHOST
+    value: ep-young-dust-d2d83gtg.database.us-east-1.cloud.databricks.com
+  - name: PGDATABASE
+    value: capstone_db
+  - name: PG_INSTANCE_NAME
+    value: capstone-pg
+  - name: PG_UC_CATALOG
+    value: oneenv_lakebase_capstone_lb_catalog
+  - name: PARENT_PATH
+    value: /Workspace/Shared/capstone
+
+user_authorization:
+  scopes:
+    - sql
+    - dashboards.genie

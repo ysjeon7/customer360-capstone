@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.databricks/
+.DS_Store
+node_modules/
+dist/
+build/
+*.log
+*.map
+app/frontend/tsconfig.tsbuildinfo

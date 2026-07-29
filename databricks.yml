@@ -1,0 +1,36 @@
+bundle:
+  name: customer360
+
+variables:
+  warehouse_id:
+    default: c2e324d2b4ff3ade
+  lakebase_instance:
+    default: capstone-pg
+  dashboard_id:
+    default: "01f18b076b04164a905a98710ae546d7"
+  genie_space_id:
+    default: "01f18b078ef41dec8e3b42ab233c15ae"
+  catalog:
+    default: oneenv_lakebase_capstone_catalog
+  pg_uc_catalog:
+    default: oneenv_lakebase_capstone_lb_catalog
+  git_repo_url:
+    default: https://github.com/yoosung-jeon_data/customer360-capstone
+  git_branch:
+    default: main
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-1a9b7863-3cc3.cloud.databricks.com
+
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-1a9b7863-3cc3.cloud.databricks.com
+      root_path: /Workspace/Users/yoosung.jeon@databricks.com/.bundle/${bundle.name}/${bundle.target}
+
+include:
+  - resources/*.yml
