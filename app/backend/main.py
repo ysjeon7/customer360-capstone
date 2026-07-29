@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from .routers import customers, external, genie, jobs
@@ -24,6 +25,11 @@ def config():
         "genie_space_id": os.environ["GENIE_SPACE_ID"],
     }
 
+
 _static = Path(__file__).parent / "static"
 if _static.exists():
-    app.mount("/", StaticFiles(directory=str(_static), html=True), name="static")
+    app.mount("/assets", StaticFiles(directory=str(_static / "assets")), name="assets")
+
+    @app.get("/{full_path:path}")
+    def spa(full_path: str):
+        return FileResponse(_static / "index.html")

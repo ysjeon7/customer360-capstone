@@ -1,6 +1,10 @@
 command: ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 env:
+  - name: DATABRICKS_HOST
+    value: https://dbc-1a9b7863-3cc3.cloud.databricks.com
+  - name: FORWARD_ETL_JOB_ID
+    value: "432016658862968"
   - name: CAPSTONE_CATALOG
     value: oneenv_lakebase_capstone_catalog
   - name: CAPSTONE_SCHEMA
