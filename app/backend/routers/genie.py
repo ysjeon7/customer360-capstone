@@ -34,11 +34,23 @@ def _serialize(msg) -> dict:
     return out
 
 
+def _serialize_start(resp) -> dict:
+    if resp.message is not None:
+        return _serialize(resp.message)
+    return {
+        "conversation_id": resp.conversation_id,
+        "message_id": resp.message_id,
+        "status": None,
+        "content": None,
+        "attachments": [],
+    }
+
+
 @router.post("/conversations")
 def start_conversation(body: MessageIn, request: Request):
     w = obo_client(request)
     wait = w.genie.start_conversation(space_id=GENIE_SPACE_ID, content=body.content)
-    return _serialize(wait.response)
+    return _serialize_start(wait.response)
 
 
 @router.post("/conversations/{conversation_id}/messages")
