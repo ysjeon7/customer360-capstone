@@ -1,0 +1,104 @@
+Obtained M2M bearer (len=814)
+GET https://customer360-7474651289964952.aws.databricksapps.com/api/external/customers/C0003600
+Status: 200
+{
+  "profile": {
+    "customer_id": "C0003600",
+    "first_name": "James",
+    "last_name": "Chen",
+    "email": "james.chen3600@example.com",
+    "phone": "+1-1600-1200",
+    "country": "GB",
+    "city": "New York",
+    "gender": "F",
+    "age": "34",
+    "signup_date": "2025-09-06",
+    "last_purchase_date": "2025-12-30",
+    "segment_id": "S5",
+    "lifetime_value": "69000.23",
+    "churn_score": "0.506"
+  },
+  "transactions": [
+    {
+      "transaction_id": "T00063600",
+      "product_id": "P00000",
+      "transaction_date": "2026-07-29",
+      "channel": "mobile",
+      "status": "completed",
+      "amount": "884.67"
+    },
+    {
+      "transaction_id": "T00033600",
+      "product_id": "P00000",
+      "transaction_date": "2026-07-28",
+      "channel": "web",
+      "status": "pending",
+      "amount": "1162.74"
+    },
+    {
+      "transaction_id": "T00073600",
+      "product_id": "P00000",
+      "transaction_date": "2026-07-23",
+      "channel": "web",
+      "status": "completed",
+      "amount": "932.44"
+    },
+    {
+      "transaction_id": "T00093600",
+      "product_id": "P00000",
+      "transaction_date": "2026-07-14",
+      "channel": "web",
+      "status": "completed",
+      "amount": "841.8"
+    },
+    {
+      "transaction_id": "T00013600",
+      "product_id": "P00000",
+      "transaction_date": "2026-07-02",
+      "channel": "web",
+      "status": "completed",
+      "amount": "1153.54"
+    },
+    {
+      "transaction_id": "T00043600",
+      "product_id": "P00000",
+      "transaction_date": "2026-06-17",
+      "channel": "web",
+      "status": "completed",
+      "amount": "821.62"
+    },
+    {
+      "transaction_id": "T00053600",
+      "product_id": "P00000",
+      "transaction_date": "2026-06-10",
+      "channel": "store",
+      "status": "completed",
+      "amount": "956.27"
+    },
+    {
+      "transaction_id": "T00083600",
+      "product_id": "P00000",
+      "transaction_date": "2026-05-03",
+      "channel": "mobile",
+      "status": "completed",
+      "amount": "931.01"
+    },
+    {
+      "transaction_id": "T00023600",
+      "product_id": "P00000",
+      "transaction_date": "2026-04-18",
+      "channel": "web",
+      "status": "completed",
+      "amount": "1075.52"
+    },
+    {
+      "transaction_id": "T00003600",
+      "product_id": "P00000",
+      "transaction_date": "2026-02-14",
+      "channel": "web",
+      "status": "completed",
+      "amount": "1105.86"
+    }
+  ]
+}
+OK: 200 + customer JSON
